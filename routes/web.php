@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+##Route::get('/', function () {
+  ##  return view('welcome');
+
+    
+##});
 
 ##Route::get('/', function () {
 ##    return view('notas');
@@ -41,7 +43,7 @@ Route::get('notas/{id}/editar', function ($id) {
 
 Route::get('agregar', function () {
     return view('agregar');
-});
+})->name('nuevanota');
 
 Route::get('editar', function () {
     return view('editar');
@@ -49,7 +51,7 @@ Route::get('editar', function () {
 
 
 ##31/01/22
-Route::get('notas', function(){
+Route::get('/', function(){
     $notas=[
     /*    'Primera nota',
         'Segunda nota',
@@ -57,4 +59,4 @@ Route::get('notas', function(){
         'Cuarta nota',*/
     ];
     return view('notas', ['notas'=> $notas]);
-});
+})->name('listar');

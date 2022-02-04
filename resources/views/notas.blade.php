@@ -14,7 +14,7 @@
                         </p>
                     </div>
                     @empty
-                        <p>No hay registros que mostrar en este momento <a href="/agregar">Agregar nota </a></p>
+                        <p>No hay registros que mostrar en este momento <a href="{{url('agregar')}}">Agregar nota </a></p>
                     @endforelse
                     <footer class="card-footer">
                         <a class="action-link action-edit">
