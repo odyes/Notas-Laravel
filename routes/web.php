@@ -38,8 +38,12 @@ Route::get('notas/actualizar', function () {
 ¨*/
 
 Route::get('notas/{id}/editar', function ($id) {
+    $nota=DB::table('notas')
+    ->where('id', $id)
+    ->first();
+
     return 'Aquí se van a editar las notas: ' .$id;
-}); ##;->where('id', '[0-9]+');  Se usa para una ruta especifica
+})->name('notas.edit'); ##;->where('id', '[0-9]+');  Se usa para una ruta especifica
 
 Route::get('agregar', function () {
     return view('agregar');
@@ -50,13 +54,11 @@ Route::get('editar', function () {
 });
 
 
-##31/01/22
+##
 Route::get('/', function(){
-    $notas=[
-    /*    'Primera nota',
-        'Segunda nota',
-        'Tercera nota',
-        'Cuarta nota',*/
-    ];
+    $notas= DB::table('notas')->get();
+
+
     return view('notas', ['notas'=> $notas]);
 })->name('listar');
+
