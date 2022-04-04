@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+use App\Notas;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,20 +13,19 @@
 |
 */
 
-##Route::get('/', function () {
-  ##  return view('welcome');
+ Route::get('/', function () {
+    return view('welcome');  
+ });
 
-    
-##});
-
+ Route::get('notas', 'App\Http\Controllers\NotasController@index')->name('notas.index');
 ##Route::get('/', function () {
 ##    return view('notas');
 ##});
 
 
-Route::get('notas/actualizar', function () {
-    return 'Aquí será la vista pra actualizar una nota';
-});
+#Route::get('notas/actualizar', function () {
+ #   return 'Aquí será la vista pra actualizar una nota';
+#});
 
 /*Route::get('api/notas', function () {
     return {
@@ -36,29 +37,46 @@ Route::get('notas/actualizar', function () {
     }
 });
 ¨*/
+Route::get('notas', )->name('notas.index');
 
-Route::get('notas/{id}/editar', function ($id) {
-    $nota=DB::table('notas')
-    ->where('id', $id)
-    ->first();
-
-    return 'Aquí se van a editar las notas: ' .$id;
-})->name('notas.edit'); ##;->where('id', '[0-9]+');  Se usa para una ruta especifica
 
 Route::get('agregar', function () {
     return view('agregar');
-})->name('nuevanota');
-
-Route::get('editar', function () {
-    return view('editar');
 });
 
+// Route::get('notas/agregar', function () {
+//     return 'Aquí es donde agregamos nuestra notas';
+// });
 
-##
-Route::get('/', function(){
-    $notas= DB::table('notas')->get();
+Route::get('notas/{id}/editar', function ($id) {
+    $notas=Notas>>find($id); //$nota=DB::table('notas')
+    //->where('id', $id)
+   // ->first();
+
+    return view('editar', ['notas'=>$notas]);
+    //return 'Aquí se van a editar las notas: ' .$id;
+})->name('notas.edit'); ##;->where('id', '[0-9]+');  Se usa para una ruta especifica
 
 
-    return view('notas', ['notas'=> $notas]);
-})->name('listar');
 
+// Route::get('editar', function () {
+//     return view('editar');
+// });
+
+
+// ##
+//  Route::get('/', function(){
+//      $notas= DB::table('notas')->get();
+
+
+//      return view('notas', ['notas'=> $notas]);
+//  })->name('listar');
+
+Route::post('crear', function(Request $request){
+    Notas::create([
+        'titulo'=> $request->input('title'),
+        'contenido'=> $request-> input('content')
+    ]);
+
+    return redirect('/notas');
+})->name('notas.store');

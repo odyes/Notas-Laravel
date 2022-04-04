@@ -1,23 +1,24 @@
-        @extends('layout')
+@extends('layout')
 
-        @section('content')
-        <main class="content">
-            <div class="cards">
-                <div class="card card-center">
-                    <div class="card-body">
-                        <h1>Nueva nota</h1>
+@section('content')
+<main class="content">
+    <div class="cards">
+        <div class="card card-center">
+            <div class="card-body">
+                <h1>Nueva nota</h1>
 
-                        <form action="">
-                            <label for="title" class="field-label">Título: </label>
-                            <input type="text" name="title" id="title" class="field-input">
+                <form method="POST" action="{{ url('crear') }}">
+                    @csrf
+                    <label for="title" class="field-label">Título: </label>
+                    <input type="text" name="title" id="title" class="field-input">
 
-                            <label for="content" class="field-label">Contenido:</label>
-                            <textarea name="content" id="content" rows="10" class="field-textarea"></textarea>
+                    <label for="content" class="field-label">Contenido:</label>
+                    <textarea name="content" id="content" rows="10" class="field-textarea"></textarea>
 
-                            <button type="submit" class="btn btn-primary">Crear nota</button>
-                        </form>
-                    </div>
-                </div>
+                    <button type="submit" class="btn btn-primary">Crear nota</button>
+                </form>
             </div>
-        </main>
-       @endsection
+        </div>
+    </div>
+</main>
+@endsection
