@@ -13,70 +13,23 @@ use App\Notas;
 |
 */
 
- Route::get('/', function () {
-    return view('welcome');  
- });
+ Route::get('/', 'App\Http\Controllers\NotasController@index')->name('notas.raiz');
 
  Route::get('notas', 'App\Http\Controllers\NotasController@index')->name('notas.index');
-##Route::get('/', function () {
-##    return view('notas');
-##});
 
+ Route::get('agregar', 'App\Http\Controllers\NotasController@agregar')->name('notas.agregar');
+ 
+ Route::post('crear', 'App\Http\Controllers\NotasController@store')->name('notas.store');
+ 
+ Route::get('notas/{id}/editar', 'App\Http\Controllers\NotasController@edit')->name('notas.edit');
 
-#Route::get('notas/actualizar', function () {
- #   return 'Aquí será la vista pra actualizar una nota';
-#});
+ Route::put('notas/{notas}/editar', 'App\Http\Controllers\NotasController@update')->name('notas.update');
 
-/*Route::get('api/notas', function () {
-    return {
-        'Notas' => [
-            'Nombre',
-            'Fechas',
-            'Autor',
-        ]
-    }
-});
-¨*/
-Route::get('notas', )->name('notas.index');
-
-
-Route::get('agregar', function () {
-    return view('agregar');
-});
-
-// Route::get('notas/agregar', function () {
-//     return 'Aquí es donde agregamos nuestra notas';
-// });
-
-Route::get('notas/{id}/editar', function ($id) {
-    $notas=Notas>>find($id); //$nota=DB::table('notas')
-    //->where('id', $id)
-   // ->first();
-
-    return view('editar', ['notas'=>$notas]);
-    //return 'Aquí se van a editar las notas: ' .$id;
-})->name('notas.edit'); ##;->where('id', '[0-9]+');  Se usa para una ruta especifica
+ Route::delete('notas/{id}', 'App\Http\Controllers\NotasController@destroy')->name('notas.destroy'); 
 
 
 
-// Route::get('editar', function () {
-//     return view('editar');
-// });
 
 
-// ##
-//  Route::get('/', function(){
-//      $notas= DB::table('notas')->get();
 
 
-//      return view('notas', ['notas'=> $notas]);
-//  })->name('listar');
-
-Route::post('crear', function(Request $request){
-    Notas::create([
-        'titulo'=> $request->input('title'),
-        'contenido'=> $request-> input('content')
-    ]);
-
-    return redirect('/notas');
-})->name('notas.store');
